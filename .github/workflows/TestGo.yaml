@@ -12,6 +12,6 @@ jobs:
         with:
           go-version: ">=1.17.0"
       - name: Go dependencies
-        uses: go mod tidy
+        run: go mod tidy
       - name: Run Test
-        uses: GOTEST=test go test -v ./test
+        run: GOTEST=test go test -v ./test
