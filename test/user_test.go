@@ -2,7 +2,7 @@ package test
 
 import "testing"
 
-func TestXxx(t *testing.T) {
+func TestDeu(t *testing.T) {
 	if 2 != 2 {
 		t.Error("deu ruim")
 	}
