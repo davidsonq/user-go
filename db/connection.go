@@ -28,8 +28,8 @@ func ConnectionDB() *gorm.DB {
 	}
 	conf := configs.GetConfig()
 
-	dsn := fmt.Sprintf("host=%s user=%s dbname=%s password=%s port=%s sslmode=disable TimeZone=UTC",
-		conf.DBconfigs.Host, conf.DBconfigs.User, conf.DBconfigs.Name, conf.DBconfigs.Pass, conf.DBconfigs.Port)
+	dsn := fmt.Sprintf("host=%s user=%s dbname=%s password=%s port=%s sslmode=%s TimeZone=UTC",
+		conf.DBconfigs.Host, conf.DBconfigs.User, conf.DBconfigs.Name, conf.DBconfigs.Pass, conf.DBconfigs.Port, conf.DBconfigs.Ssl)
 
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{
 		Logger: logger.Default.LogMode(logger.Silent),
