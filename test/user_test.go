@@ -3,11 +3,14 @@ package test
 import (
 	"bytes"
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"net/http/httptest"
 	"reflect"
+	"runtime"
 	"testing"
 	"user-go/handlers"
+	"user-go/models"
 	"user-go/test/mock"
 
 	"github.com/gin-gonic/gin"
@@ -91,4 +94,46 @@ func TestCreatedUser(t *testing.T) {
 
 		}
 	})
+}
+
+func BenchmarkCreateUser(b *testing.B) {
+
+	r := gin.Default()
+	r.POST("/api/users", handlers.CreateUser)
+	runtime.GOMAXPROCS(runtime.NumCPU())
+	b.Run("Succes", func(b *testing.B) {
+		for n := 1; n < b.N; n++ {
+			requestBody := models.User{
+				ID:       uuid.New().String(),
+				Nickname: fmt.Sprintf("test%v", n),
+				Email:    fmt.Sprintf("test%v@example.com", n),
+				Password: "123456",
+			}
+			jsonBody, _ := json.Marshal(requestBody)
+			req, _ := http.NewRequest("POST", "/api/users", bytes.NewBuffer(jsonBody))
+			req.Header.Set("Content-Type", "application/json")
+			rec := httptest.NewRecorder()
+			r.ServeHTTP(rec, req)
+			assert.Equal(b, http.StatusCreated, rec.Code)
+
+		}
+	})
+	b.Run("Conflit", func(b *testing.B) {
+
+		for n := 1; n < b.N; n++ {
+			requestBody := models.User{
+				ID:       uuid.New().String(),
+				Nickname: fmt.Sprintf("test%v", n),
+				Email:    fmt.Sprintf("test%v@example.com", n),
+				Password: "123456",
+			}
+			jsonBody, _ := json.Marshal(requestBody)
+			req, _ := http.NewRequest("POST", "/api/users", bytes.NewBuffer(jsonBody))
+			req.Header.Set("Content-Type", "application/json")
+			rec := httptest.NewRecorder()
+			r.ServeHTTP(rec, req)
+			assert.Equal(b, http.StatusConflict, rec.Code)
+		}
+	})
+
 }

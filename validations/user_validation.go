@@ -24,6 +24,7 @@ func GetCustomErrorMessageUser(errs validator.ValidationErrors) string {
 }
 
 func DuplicateErrorUser(err error) map[string]string {
+
 	switch {
 	case strings.Contains(err.Error(), "email"):
 		return map[string]string{"email": "email already exists!"}
