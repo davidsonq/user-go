@@ -1,1 +1,4 @@
 test/
+.github
+.env.example
+.gitgnore

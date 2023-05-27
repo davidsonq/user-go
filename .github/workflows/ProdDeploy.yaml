@@ -1,0 +1,17 @@
+name: Prod Deploy
+on:
+  schedule:
+    - cron: "40 19 * * 6"
+
+jobs:
+  deploy:
+    name: Deploy app
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Deploy to render
+        uses: johnbeynon/render-deploy-action@v0.0.8
+        with:
+          api-key: ${{ secrets.RENDER_TOKEN }}
+          service-id: ${{ secrets.SERVICE_ID }}
