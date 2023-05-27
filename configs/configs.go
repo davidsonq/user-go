@@ -20,6 +20,7 @@ type DBconfigs struct {
 	Host string
 	Pass string
 	Name string
+	Ssl  string
 }
 
 func newConfig() *configs {
@@ -40,6 +41,7 @@ func GetConfig() *configs {
 		Host: os.Getenv("DB_HOST"),
 		Name: os.Getenv("DB"),
 		Pass: os.Getenv("DB_PASS"),
+		Ssl:  os.Getenv("SSL"),
 	}
 
 	return cfg
