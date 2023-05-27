@@ -6,6 +6,8 @@ import (
 )
 
 func main() {
+
 	migrations.Migrations()
 	routes.SetupRoutes()
+
 }

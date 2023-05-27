@@ -1,6 +1,7 @@
 package configs
 
 import (
+	"log"
 	"os"
 
 	"github.com/joho/godotenv"
@@ -26,7 +27,6 @@ func newConfig() *configs {
 }
 
 func GetConfig() *configs {
-	godotenv.Load(".env")
 
 	cfg := newConfig()
 
@@ -43,4 +43,11 @@ func GetConfig() *configs {
 	}
 
 	return cfg
+}
+
+func init() {
+	err := godotenv.Load()
+	if err != nil {
+		log.Print(err)
+	}
 }

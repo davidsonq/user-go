@@ -14,6 +14,7 @@ import (
 )
 
 func ConnectionDB() *gorm.DB {
+
 	if os.Getenv("GOTEST") == "test" {
 		db, err := gorm.Open(sqlite.Open("file::memory:?cache=shared"), &gorm.Config{
 			Logger: logger.Default.LogMode(logger.Silent),
@@ -27,7 +28,7 @@ func ConnectionDB() *gorm.DB {
 	}
 	conf := configs.GetConfig()
 
-	dsn := fmt.Sprintf("host=%s user=%s dbname=%s password=%s port=%s sslmode=require TimeZone=UTC",
+	dsn := fmt.Sprintf("host=%s user=%s dbname=%s password=%s port=%s sslmode=disable TimeZone=UTC",
 		conf.DBconfigs.Host, conf.DBconfigs.User, conf.DBconfigs.Name, conf.DBconfigs.Pass, conf.DBconfigs.Port)
 
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{
