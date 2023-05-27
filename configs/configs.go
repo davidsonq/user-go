@@ -1,7 +1,6 @@
 package configs
 
 import (
-	"log"
 	"os"
 
 	"github.com/joho/godotenv"
@@ -29,7 +28,7 @@ func newConfig() *configs {
 func GetConfig() *configs {
 	err := godotenv.Load(".env")
 	if err != nil {
-		log.Fatal("Error loading .env file")
+		panic("Error loading .env file")
 	}
 
 	cfg := newConfig()
@@ -42,7 +41,7 @@ func GetConfig() *configs {
 		Port: os.Getenv("DB_PORT"),
 		User: os.Getenv("DB_USER"),
 		Host: os.Getenv("DB_HOST"),
-		Name: os.Getenv("DB_NAME"),
+		Name: os.Getenv("DB"),
 		Pass: os.Getenv("DB_PASS"),
 	}
 
