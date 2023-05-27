@@ -3,8 +3,6 @@ WORKDIR /app
 COPY . .
 RUN go mod tidy
 WORKDIR /app/cmd
-RUN  CGO_ENABLE=0 GOOS=linux GOARCH=amd64 go build -ldflags="-X main.migrations=true" -o migrations -buildvsc=false 
-ENTRYPOINT [ "/migrations" ]
 RUN CGO_ENABLE=0 GOOS=linux GOARCH=amd64 go build -o server -buildvsc=false
 FROM scratch
 COPY --from=builder /app/cmd/server /server
