@@ -9,6 +9,7 @@ import (
 )
 
 func SetupRoutes() {
+	gin.SetMode(gin.ReleaseMode)
 
 	r := gin.Default()
 
