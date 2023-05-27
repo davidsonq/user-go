@@ -3,7 +3,7 @@ WORKDIR /app
 COPY . .
 RUN go mod tidy
 WORKDIR /app/cmd/
-RUN CGO_ENABLE=0 GOOS=linux GOARCH=amd64 go build -o server -buildvsc=false
+RUN CGO_ENABLE=0 GOOS=linux GOARCH=amd64 go build -o server -ldflags="-s -w"
 FROM scratch
 COPY --from=builder /app/cmd/server /server
 ENTRYPOINT [ "/server" ]
