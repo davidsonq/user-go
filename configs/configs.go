@@ -26,10 +26,7 @@ func newConfig() *configs {
 }
 
 func GetConfig() *configs {
-	err := godotenv.Load(".env")
-	if err != nil {
-		panic("Error loading .env file")
-	}
+	godotenv.Load(".env")
 
 	cfg := newConfig()
 
