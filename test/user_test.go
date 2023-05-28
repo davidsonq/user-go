@@ -9,10 +9,10 @@ import (
 	"reflect"
 	"runtime"
 	"testing"
-	"user-go/handlers"
-	"user-go/models"
-	"user-go/test/mock"
 
+	"github.com/davidsonq/user-go/handlers"
+	"github.com/davidsonq/user-go/models"
+	"github.com/davidsonq/user-go/test/mock"
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
@@ -20,7 +20,7 @@ import (
 
 func TestCreatedUser(t *testing.T) {
 	r := gin.Default()
-	r.POST("/api/users", handlers.CreateUser)
+	r.POST("/api/users", handlers.CreateUserHandle)
 	t.Run("SuccessfulCreation", func(t *testing.T) {
 
 		requestBody, responseBody := mock.MockUserSucess()
@@ -96,10 +96,10 @@ func TestCreatedUser(t *testing.T) {
 	})
 }
 
-func BenchmarkCreateUser(b *testing.B) {
+func BenchmarkCreateUserHandle(b *testing.B) {
 
 	r := gin.Default()
-	r.POST("/api/users", handlers.CreateUser)
+	r.POST("/api/users", handlers.CreateUserHandle)
 	runtime.GOMAXPROCS(runtime.NumCPU())
 	b.Run("Succes", func(b *testing.B) {
 		for n := 1; n < b.N; n++ {

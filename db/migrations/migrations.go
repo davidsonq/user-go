@@ -4,8 +4,9 @@ import (
 	"flag"
 	"fmt"
 	"log"
-	"user-go/db"
-	"user-go/models"
+
+	"github.com/davidsonq/user-go/db"
+	"github.com/davidsonq/user-go/models"
 )
 
 func Migrations() {

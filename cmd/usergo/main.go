@@ -1,0 +1,26 @@
+package main
+
+import (
+	"github.com/davidsonq/user-go/db/migrations"
+	docs "github.com/davidsonq/user-go/docs"
+
+	"github.com/davidsonq/user-go/routes"
+)
+
+// @title           User Management Microservice with Login System
+// @version         1.0
+// @description     This is a microservice built to manage users, with authentication and login features.
+
+// @contact.email  davidsonquaresma@hotmail.com
+
+// @license.name  MIT
+// @license.url   https://github.com/davidsonq/user-go/blame/main/LICENSE
+
+// @host      https://usergo.onrender.com
+// @BasePath  /api/users
+func main() {
+	migrations.Migrations()
+	routes.SetupRoutes()
+	docs.SwaggerInfo.BasePath = "/"
+
+}

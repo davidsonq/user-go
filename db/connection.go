@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"user-go/configs"
-	"user-go/models"
 
+	"github.com/davidsonq/user-go/configs"
+	"github.com/davidsonq/user-go/models"
 	"gorm.io/driver/postgres"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
