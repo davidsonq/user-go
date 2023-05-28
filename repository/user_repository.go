@@ -2,22 +2,13 @@ package repository
 
 import (
 	"log"
-	"time"
-	"user-go/db"
-	"user-go/models"
 
+	"github.com/davidsonq/user-go/db"
+	"github.com/davidsonq/user-go/models"
 	"golang.org/x/crypto/bcrypt"
 )
 
-type UserResponse struct {
-	ID        string    `json:"id"`
-	Nickname  string    `json:"nickname"`
-	Email     string    `json:"email"`
-	CreatedAt time.Time `json:"created_at"`
-	UpdatedAt time.Time `json:"updated_at"`
-}
-
-func CreateUser(u *models.User) (*UserResponse, error) {
+func CreateUser(u *models.User) (*models.UserResponse, error) {
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(u.Password), bcrypt.DefaultCost)
 
 	if err != nil {
@@ -32,7 +23,7 @@ func CreateUser(u *models.User) (*UserResponse, error) {
 	}
 	u.Password = ""
 
-	return &UserResponse{
+	return &models.UserResponse{
 		ID:        u.ID,
 		Nickname:  u.Nickname,
 		Email:     u.Email,

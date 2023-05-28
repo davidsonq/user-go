@@ -1,0 +1,75 @@
+basePath: /api/users
+definitions:
+  models.ErrosNoBody:
+    properties:
+      error:
+        type: string
+    type: object
+  models.ExampleInputUser:
+    properties:
+      email:
+        type: string
+      nickname:
+        type: string
+      password:
+        type: string
+    type: object
+  models.UserResponse:
+    properties:
+      created_at:
+        type: string
+      email:
+        type: string
+      id:
+        type: string
+      nickname:
+        type: string
+      updated_at:
+        type: string
+    type: object
+host: https://usergo.onrender.com
+info:
+  contact:
+    email: davidsonquaresma@hotmail.com
+  description: This is a microservice built to manage users, with authentication and
+    login features.
+  license:
+    name: MIT
+    url: https://github.com/davidsonq/user-go/blame/main/LICENSE
+  title: User Management Microservice with Login System
+  version: "1.0"
+paths:
+  /api/users:
+    post:
+      consumes:
+      - application/json
+      description: Create new user
+      parameters:
+      - description: Request body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.ExampleInputUser'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/models.UserResponse'
+        "400":
+          description: 'The body of the request is empty or lack of Nickname, Email,
+            Password in the body of the request, the email has to be a valid email
+            and nickname has to have at least 3 characters and password at least 6 '
+          schema:
+            $ref: '#/definitions/models.ErrosNoBody'
+        "401":
+          description: This error is generated when trying to register a nickname
+            or email already registered
+          schema:
+            $ref: '#/definitions/models.ErrosNoBody'
+      summary: Create user
+      tags:
+      - users
+swagger: "2.0"
