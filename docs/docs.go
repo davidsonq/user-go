@@ -113,6 +113,49 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/api/users/profile": {
+            "get": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Seach profile user",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "users"
+                ],
+                "summary": "Get Profile",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.UserResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "When you pass an invalid token in the request header or it was not sent for authentication.",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrosNoBody"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
