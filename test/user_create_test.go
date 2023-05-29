@@ -50,7 +50,7 @@ func TestCreatedUser(t *testing.T) {
 		assert.Empty(t, responseBody.Password)
 		assert.Equal(t, reflect.TypeOf(requestBody.CreatedAt), reflect.TypeOf(responseBody.CreatedAt))
 		assert.Equal(t, reflect.TypeOf(requestBody.UpdatedAt), reflect.TypeOf(responseBody.UpdatedAt))
-		assert.Empty(t, responseBody.DeleteAt)
+		assert.Empty(t, responseBody.DeletedAt)
 	})
 
 	t.Run("TestingErrosValidation", func(t *testing.T) {

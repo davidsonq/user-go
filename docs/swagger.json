@@ -13,9 +13,9 @@
         "version": "1.0"
     },
     "host": "https://usergo.onrender.com",
-    "basePath": "/api/users",
+    "basePath": "/api/",
     "paths": {
-        "/api/users": {
+        "/users": {
             "post": {
                 "description": "Create new user",
                 "consumes": [
@@ -61,9 +61,14 @@
                 }
             }
         },
-        "/api/users/login": {
-            "post": {
-                "description": "Create new session",
+        "/users/:id": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Deleted User",
                 "consumes": [
                     "application/json"
                 ],
@@ -71,9 +76,57 @@
                     "application/json"
                 ],
                 "tags": [
-                    "session"
+                    "users"
                 ],
-                "summary": "Session User",
+                "summary": "Delete User",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "User not exist",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrosNoBody"
+                        }
+                    },
+                    "401": {
+                        "description": "When you pass an invalid token in the request header or it was not sent for authentication.",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrosNoBody"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/login": {
+            "post": {
+                "description": "Create new session login",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "login"
+                ],
+                "summary": "Login User",
                 "parameters": [
                     {
                         "description": "Request body",
@@ -107,7 +160,7 @@
                 }
             }
         },
-        "/api/users/profile": {
+        "/users/profile": {
             "get": {
                 "security": [
                     {
