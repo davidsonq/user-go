@@ -1,10 +1,9 @@
 package main
 
 import (
-	"github.com/davidsonq/user-go/db/migrations"
 	docs "github.com/davidsonq/user-go/docs"
-
-	"github.com/davidsonq/user-go/routes"
+	"github.com/davidsonq/user-go/internal/db/migrations"
+	"github.com/davidsonq/user-go/internal/routes"
 )
 
 // @title           User Management Microservice with Login System

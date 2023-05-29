@@ -3,8 +3,8 @@ package repository
 import (
 	"log"
 
-	"github.com/davidsonq/user-go/db"
-	"github.com/davidsonq/user-go/models"
+	"github.com/davidsonq/user-go/internal/db"
+	"github.com/davidsonq/user-go/internal/models"
 	"golang.org/x/crypto/bcrypt"
 )
 

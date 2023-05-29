@@ -3,9 +3,10 @@ package handlers
 import (
 	"net/http"
 
-	"github.com/davidsonq/user-go/models"
-	"github.com/davidsonq/user-go/repository"
-	"github.com/davidsonq/user-go/validations"
+	"github.com/davidsonq/user-go/internal/models"
+	"github.com/davidsonq/user-go/internal/repository"
+	"github.com/davidsonq/user-go/internal/validations"
+
 	"github.com/gin-gonic/gin"
 	"github.com/go-playground/validator/v10"
 	"github.com/google/uuid"

@@ -10,8 +10,8 @@ import (
 	"runtime"
 	"testing"
 
-	"github.com/davidsonq/user-go/handlers"
-	"github.com/davidsonq/user-go/models"
+	"github.com/davidsonq/user-go/internal/handlers"
+	"github.com/davidsonq/user-go/internal/models"
 	"github.com/davidsonq/user-go/test/mock"
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
