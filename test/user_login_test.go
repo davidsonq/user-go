@@ -13,6 +13,8 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+var goblaToken string
+
 func TestLoginUser(t *testing.T) {
 	r := gin.New()
 	gin.SetMode(gin.ReleaseMode)
@@ -38,6 +40,8 @@ func TestLoginUser(t *testing.T) {
 		assert.NoError(t, err)
 
 		assert.NotZero(t, len(responseBody.Token))
+
+		goblaToken = responseBody.Token
 	})
 
 	t.Run("TestingErrosValidation", func(t *testing.T) {

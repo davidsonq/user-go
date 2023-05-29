@@ -123,4 +123,32 @@ paths:
       summary: Session User
       tags:
       - session
+  /api/users/profile:
+    get:
+      consumes:
+      - application/json
+      description: Seach profile user
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.UserResponse'
+        "401":
+          description: When you pass an invalid token in the request header or it
+            was not sent for authentication.
+          schema:
+            $ref: '#/definitions/models.ErrosNoBody'
+      security:
+      - ApiKeyAuth: []
+      summary: Get Profile
+      tags:
+      - users
 swagger: "2.0"
