@@ -16,7 +16,7 @@ import (
 // @license.url   https://github.com/davidsonq/user-go/blame/main/LICENSE
 
 // @host      https://usergo.onrender.com
-// @BasePath  /api/users
+// @BasePath  /api/
 func main() {
 	migrations.Migrations()
 	routes.SetupRoutes()

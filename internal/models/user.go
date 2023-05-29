@@ -13,7 +13,7 @@ type User struct {
 	Password  string         `json:"password" gorm:"password" binding:"required,min=6,max=16"`
 	CreatedAt time.Time      `json:"created_at"`
 	UpdatedAt time.Time      `json:"updated_at"`
-	DeleteAt  gorm.DeletedAt `json:"deteled_at" gorm:"index"`
+	DeletedAt gorm.DeletedAt `json:"deteled_at" gorm:"index"`
 }
 
 type ExampleInputUser struct {

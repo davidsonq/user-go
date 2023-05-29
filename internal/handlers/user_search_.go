@@ -16,20 +16,14 @@ import (
 // @Param Authorization header string true "Bearer token"
 // @Success 200 {object} models.UserResponse
 // @Failure 401 {object} models.ErrosNoBody "When you pass an invalid token in the request header or it was not sent for authentication."
-// @Router /api/users/profile [get]
-func GetProfileUser(c *gin.Context) {
+// @Router /users/profile [get]
+func GetProfileUserHandler(c *gin.Context) {
 	userID := c.GetString("userID")
-
-	// // Compare o ID passado com o ID do usuário autenticado
-	// if userID != c.Param("id") {
-	// 	c.JSON(http.StatusUnauthorized, gin.H{"error": "Unauthorized access."})
-	// 	return
-	// }
 
 	u, err := repository.GetProfile(&userID)
 
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"error": "Unauthorized action!"})
 		return
 	}
 

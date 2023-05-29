@@ -14,10 +14,12 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+var profileId string
+
 func TestGetProfile(t *testing.T) {
 	r := gin.New()
 	gin.SetMode(gin.ReleaseMode)
-	r.GET("/api/users/profile", middlewares.AuthMiddleware(), handlers.GetProfileUser)
+	r.GET("/api/users/profile", middlewares.AuthMiddleware(), handlers.GetProfileUserHandler)
 
 	t.Run("SucessGetProfile", func(t *testing.T) {
 		req, err := http.NewRequest("GET", "/api/users/profile", nil)
@@ -38,7 +40,7 @@ func TestGetProfile(t *testing.T) {
 
 		assert.Equal(t, requestBody, responseBody.Email)
 		assert.Empty(t, responseBody.Password)
-
+		profileId = responseBody.ID
 	})
 
 	t.Run("ErrorNoAuthorization", func(t *testing.T) {

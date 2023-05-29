@@ -1,4 +1,4 @@
-basePath: /api/users
+basePath: /api/
 definitions:
   models.ErrosNoBody:
     properties:
@@ -57,7 +57,7 @@ info:
   title: User Management Microservice with Login System
   version: "1.0"
 paths:
-  /api/users:
+  /users:
     post:
       consumes:
       - application/json
@@ -90,11 +90,46 @@ paths:
       summary: Create user
       tags:
       - users
-  /api/users/login:
+  /users/:id:
+    delete:
+      consumes:
+      - application/json
+      description: Deleted User
+      parameters:
+      - description: Bearer token
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: User not exist
+          schema:
+            $ref: '#/definitions/models.ErrosNoBody'
+        "401":
+          description: When you pass an invalid token in the request header or it
+            was not sent for authentication.
+          schema:
+            $ref: '#/definitions/models.ErrosNoBody'
+      security:
+      - ApiKeyAuth: []
+      summary: Delete User
+      tags:
+      - users
+  /users/login:
     post:
       consumes:
       - application/json
-      description: Create new session
+      description: Create new session login
       parameters:
       - description: Request body
         in: body
@@ -120,10 +155,10 @@ paths:
             email or password.
           schema:
             $ref: '#/definitions/models.ErrosNoBody'
-      summary: Session User
+      summary: Login User
       tags:
-      - session
-  /api/users/profile:
+      - login
+  /users/profile:
     get:
       consumes:
       - application/json

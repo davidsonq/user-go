@@ -10,16 +10,16 @@ import (
 	"github.com/go-playground/validator/v10"
 )
 
-// @Summary Session User
-// @Description Create new session
-// @Tags session
+// @Summary Login User
+// @Description Create new session login
+// @Tags login
 // @Accept json
 // @Produce json
 // @Param request body models.LoginUser true "Request body"
 // @Success 200 {object} models.LoginResponse
 // @Failure 400 {object} models.ErrosNoBody "The request body is empty or missing Email, Password in the request body, the email has to be a valid email and the password has at least 6 characters."
 // @Failure 403 {object} models.ErrosNoBody "This error is generated when trying to login with an invalid email or password."
-// @Router /api/users/login [post]
+// @Router /users/login [post]
 func LoginUserHandler(c *gin.Context) {
 	if c.Request.ContentLength == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "The request body is empty"})

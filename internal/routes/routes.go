@@ -27,9 +27,9 @@ func SetupRoutes() *gin.Engine {
 
 func userRoutes(r *gin.Engine) {
 	r.POST("/api/users", handlers.CreateUserHandle)
-	r.GET("/api/users/profile", middlewares.AuthMiddleware(), handlers.GetProfileUser)
-	// r.PATCH("/api/users/{id}", middlewares.AuthMiddleware(), handlers.GetProfileUser)
-	// r.DELETE("/api/users/{id}", middlewares.AuthMiddleware(), handlers.GetProfileUser)
+	r.GET("/api/users/profile", middlewares.AuthMiddleware(), handlers.GetProfileUserHandler)
+	// r.PATCH("/api/users/:id", middlewares.AuthMiddleware(), handlers.GetProfileUser)
+	r.DELETE("/api/users/:id", middlewares.AuthMiddleware(), handlers.DeleteUserHandler)
 }
 
 func LoginRoutes(r *gin.Engine) {

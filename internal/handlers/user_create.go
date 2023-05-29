@@ -21,7 +21,7 @@ import (
 // @Success 201 {object} models.UserResponse
 // @Failure 400 {object} models.ErrosNoBody "The body of the request is empty or lack of Nickname, Email, Password in the body of the request, the email has to be a valid email and nickname has to have at least 3 characters and password at least 6."
 // @Failure 401 {object} models.ErrosNoBody "This error is generated when trying to register a nickname or email already registered"
-// @Router /api/users [post]
+// @Router /users [post]
 func CreateUserHandle(c *gin.Context) {
 	if c.Request.ContentLength == 0 {
 		c.JSON(http.StatusBadRequest, gin.H{"error": "The request body is empty"})

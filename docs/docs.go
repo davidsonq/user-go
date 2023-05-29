@@ -22,7 +22,7 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/api/users": {
+        "/users": {
             "post": {
                 "description": "Create new user",
                 "consumes": [
@@ -68,9 +68,14 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/users/login": {
-            "post": {
-                "description": "Create new session",
+        "/users/:id": {
+            "delete": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Deleted User",
                 "consumes": [
                     "application/json"
                 ],
@@ -78,9 +83,57 @@ const docTemplate = `{
                     "application/json"
                 ],
                 "tags": [
-                    "session"
+                    "users"
                 ],
-                "summary": "Session User",
+                "summary": "Delete User",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "User not exist",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrosNoBody"
+                        }
+                    },
+                    "401": {
+                        "description": "When you pass an invalid token in the request header or it was not sent for authentication.",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrosNoBody"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/login": {
+            "post": {
+                "description": "Create new session login",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "login"
+                ],
+                "summary": "Login User",
                 "parameters": [
                     {
                         "description": "Request body",
@@ -114,7 +167,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/api/users/profile": {
+        "/users/profile": {
             "get": {
                 "security": [
                     {
@@ -234,7 +287,7 @@ const docTemplate = `{
 var SwaggerInfo = &swag.Spec{
 	Version:          "1.0",
 	Host:             "https://usergo.onrender.com",
-	BasePath:         "/api/users",
+	BasePath:         "/api/",
 	Schemes:          []string{},
 	Title:            "User Management Microservice with Login System",
 	Description:      "This is a microservice built to manage users, with authentication and login features.",
