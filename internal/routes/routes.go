@@ -17,6 +17,7 @@ func SetupRoutes() *gin.Engine {
 	r := gin.New()
 
 	userRoutes(r)
+	LoginRoutes(r)
 	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 	r.Run(fmt.Sprintf(":%s", configs.GetConfig().APIconfigs.Port))
 
@@ -25,4 +26,8 @@ func SetupRoutes() *gin.Engine {
 
 func userRoutes(r *gin.Engine) {
 	r.POST("/api/users", handlers.CreateUserHandle)
+}
+
+func LoginRoutes(r *gin.Engine) {
+	r.POST("/api/users/login", handlers.LoginUserHandler)
 }

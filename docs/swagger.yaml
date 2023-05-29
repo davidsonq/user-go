@@ -14,6 +14,24 @@ definitions:
       password:
         type: string
     type: object
+  models.LoginResponse:
+    properties:
+      token:
+        type: string
+    type: object
+  models.LoginUser:
+    properties:
+      email:
+        maxLength: 50
+        type: string
+      password:
+        maxLength: 16
+        minLength: 6
+        type: string
+    required:
+    - email
+    - password
+    type: object
   models.UserResponse:
     properties:
       created_at:
@@ -59,9 +77,9 @@ paths:
           schema:
             $ref: '#/definitions/models.UserResponse'
         "400":
-          description: 'The body of the request is empty or lack of Nickname, Email,
+          description: The body of the request is empty or lack of Nickname, Email,
             Password in the body of the request, the email has to be a valid email
-            and nickname has to have at least 3 characters and password at least 6 '
+            and nickname has to have at least 3 characters and password at least 6.
           schema:
             $ref: '#/definitions/models.ErrosNoBody'
         "401":
@@ -72,4 +90,37 @@ paths:
       summary: Create user
       tags:
       - users
+  /api/users/login:
+    post:
+      consumes:
+      - application/json
+      description: Create new session
+      parameters:
+      - description: Request body
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/models.LoginUser'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.LoginResponse'
+        "400":
+          description: The request body is empty or missing Email, Password in the
+            request body, the email has to be a valid email and the password has at
+            least 6 characters.
+          schema:
+            $ref: '#/definitions/models.ErrosNoBody'
+        "403":
+          description: This error is generated when trying to login with an invalid
+            email or password.
+          schema:
+            $ref: '#/definitions/models.ErrosNoBody'
+      summary: Session User
+      tags:
+      - session
 swagger: "2.0"
