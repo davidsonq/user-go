@@ -19,7 +19,9 @@ import (
 )
 
 func TestCreatedUser(t *testing.T) {
-	r := gin.Default()
+	r := gin.New()
+	gin.SetMode(gin.ReleaseMode)
+
 	r.POST("/api/users", handlers.CreateUserHandle)
 	t.Run("SuccessfulCreation", func(t *testing.T) {
 
