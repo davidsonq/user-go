@@ -5,8 +5,8 @@ import (
 	"log"
 	"os"
 
-	"github.com/davidsonq/user-go/configs"
-	"github.com/davidsonq/user-go/models"
+	"github.com/davidsonq/user-go/internal/configs"
+	"github.com/davidsonq/user-go/internal/models"
 	"gorm.io/driver/postgres"
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"

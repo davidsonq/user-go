@@ -3,8 +3,8 @@ package routes
 import (
 	"fmt"
 
-	"github.com/davidsonq/user-go/configs"
-	"github.com/davidsonq/user-go/handlers"
+	"github.com/davidsonq/user-go/internal/configs"
+	"github.com/davidsonq/user-go/internal/handlers"
 	"github.com/gin-gonic/gin"
 	swaggerfiles "github.com/swaggo/files"
 	ginSwagger "github.com/swaggo/gin-swagger"

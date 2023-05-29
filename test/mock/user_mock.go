@@ -1,7 +1,7 @@
 package mock
 
 import (
-	"github.com/davidsonq/user-go/models"
+	"github.com/davidsonq/user-go/internal/models"
 	"github.com/google/uuid"
 )
 
