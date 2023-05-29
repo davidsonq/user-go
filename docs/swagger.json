@@ -47,13 +47,59 @@
                         }
                     },
                     "400": {
-                        "description": "The body of the request is empty or lack of Nickname, Email, Password in the body of the request, the email has to be a valid email and nickname has to have at least 3 characters and password at least 6 ",
+                        "description": "The body of the request is empty or lack of Nickname, Email, Password in the body of the request, the email has to be a valid email and nickname has to have at least 3 characters and password at least 6.",
                         "schema": {
                             "$ref": "#/definitions/models.ErrosNoBody"
                         }
                     },
                     "401": {
                         "description": "This error is generated when trying to register a nickname or email already registered",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrosNoBody"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/users/login": {
+            "post": {
+                "description": "Create new session",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "session"
+                ],
+                "summary": "Session User",
+                "parameters": [
+                    {
+                        "description": "Request body",
+                        "name": "request",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/models.LoginUser"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.LoginResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "The request body is empty or missing Email, Password in the request body, the email has to be a valid email and the password has at least 6 characters.",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrosNoBody"
+                        }
+                    },
+                    "403": {
+                        "description": "This error is generated when trying to login with an invalid email or password.",
                         "schema": {
                             "$ref": "#/definitions/models.ErrosNoBody"
                         }
@@ -82,6 +128,32 @@
                 },
                 "password": {
                     "type": "string"
+                }
+            }
+        },
+        "models.LoginResponse": {
+            "type": "object",
+            "properties": {
+                "token": {
+                    "type": "string"
+                }
+            }
+        },
+        "models.LoginUser": {
+            "type": "object",
+            "required": [
+                "email",
+                "password"
+            ],
+            "properties": {
+                "email": {
+                    "type": "string",
+                    "maxLength": 50
+                },
+                "password": {
+                    "type": "string",
+                    "maxLength": 16,
+                    "minLength": 6
                 }
             }
         },

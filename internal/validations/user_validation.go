@@ -14,9 +14,16 @@ func GetCustomErrorMessageUser(errs validator.ValidationErrors) string {
 			return fmt.Sprintf("'%s' isn't invalid.", err.Field())
 		case "required":
 			return fmt.Sprintf("The field '%s' is required.", err.Field())
+
 		case "min":
+			if err.Field() == "Password" {
+				return fmt.Sprintf("The field '%s' must have at least 6 characters.", err.Field())
+			}
 			return fmt.Sprintf("The field '%s' must have at least 3 characters.", err.Field())
 		case "max":
+			if err.Field() == "Password" {
+				return fmt.Sprintf("The field '%s' must have at most 16 characters.", err.Field())
+			}
 			return fmt.Sprintf("The field '%s' must have at most 50 characters.", err.Field())
 		}
 	}
