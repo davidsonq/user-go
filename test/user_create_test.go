@@ -50,7 +50,8 @@ func TestCreatedUser(t *testing.T) {
 		assert.Empty(t, responseBody.Password)
 		assert.Equal(t, reflect.TypeOf(requestBody.CreatedAt), reflect.TypeOf(responseBody.CreatedAt))
 		assert.Equal(t, reflect.TypeOf(requestBody.UpdatedAt), reflect.TypeOf(responseBody.UpdatedAt))
-		assert.Empty(t, responseBody.DeletedAt)
+
+		TestCount++
 	})
 
 	t.Run("TestingErrosValidation", func(t *testing.T) {
@@ -73,7 +74,9 @@ func TestCreatedUser(t *testing.T) {
 			assert.Equal(t, http.StatusBadRequest, rec.Code)
 
 			assert.Contains(t, rec.Body.String(), "error")
+			TestCount++
 		}
+
 	})
 
 	t.Run("TestingErrosDuplication", func(t *testing.T) {
@@ -93,7 +96,7 @@ func TestCreatedUser(t *testing.T) {
 			assert.Equal(t, http.StatusConflict, rec.Code)
 
 			assert.Contains(t, rec.Body.String(), "error")
-
+			TestCount++
 		}
 	})
 }

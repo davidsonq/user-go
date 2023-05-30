@@ -19,7 +19,7 @@ func LoginUser(l *models.LoginUser) (*models.LoginResponse, error) {
 	db := db.ConnectionDB()
 	var user models.User
 
-	if err := db.Table("users").First(&user, "email=? AND deleted_at IS NULL", l.Email).Error; err != nil {
+	if err := db.Table("users").First(&user, "email=?", l.Email).Error; err != nil {
 		return nil, err
 	}
 

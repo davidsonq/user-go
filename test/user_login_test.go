@@ -14,6 +14,7 @@ import (
 )
 
 var goblaToken string
+var TestCount int
 
 func TestLoginUser(t *testing.T) {
 	r := gin.New()
@@ -42,6 +43,7 @@ func TestLoginUser(t *testing.T) {
 		assert.NotZero(t, len(responseBody.Token))
 
 		goblaToken = responseBody.Token
+		TestCount++
 	})
 
 	t.Run("TestingErrosValidation", func(t *testing.T) {
@@ -64,6 +66,7 @@ func TestLoginUser(t *testing.T) {
 			assert.Equal(t, http.StatusBadRequest, rec.Code)
 
 			assert.Contains(t, rec.Body.String(), "error")
+			TestCount++
 		}
 	})
 
@@ -87,6 +90,7 @@ func TestLoginUser(t *testing.T) {
 			assert.Equal(t, http.StatusForbidden, rec.Code)
 
 			assert.Contains(t, rec.Body.String(), "error")
+			TestCount++
 		}
 	})
 

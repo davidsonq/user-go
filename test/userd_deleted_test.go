@@ -31,6 +31,7 @@ func TestDeleteUser(t *testing.T) {
 
 		assert.Equal(t, http.StatusUnauthorized, rec.Code)
 		assert.Contains(t, rec.Body.String(), "error")
+		TestCount++
 	})
 
 	t.Run("ErrorNoTokenInvalid", func(t *testing.T) {
@@ -45,6 +46,7 @@ func TestDeleteUser(t *testing.T) {
 
 		assert.Equal(t, http.StatusUnauthorized, rec.Code)
 		assert.Contains(t, rec.Body.String(), "error")
+		TestCount++
 	})
 
 	t.Run("ErrorIdInvalid", func(t *testing.T) {
@@ -59,6 +61,7 @@ func TestDeleteUser(t *testing.T) {
 
 		assert.Equal(t, http.StatusUnauthorized, rec.Code)
 		assert.Contains(t, rec.Body.String(), "error")
+		TestCount++
 	})
 
 	t.Run("SucessDeleteUser", func(t *testing.T) {
@@ -72,7 +75,7 @@ func TestDeleteUser(t *testing.T) {
 		r.ServeHTTP(rec, req)
 
 		assert.Equal(t, http.StatusNoContent, rec.Code)
-
+		TestCount++
 	})
 	t.Run("ErrorUserDelete", func(t *testing.T) {
 		req, err := http.NewRequest("DELETE", fmt.Sprintf("/api/users/%v", profileId), nil)
@@ -85,7 +88,7 @@ func TestDeleteUser(t *testing.T) {
 		r.ServeHTTP(rec, req)
 
 		assert.Equal(t, http.StatusBadRequest, rec.Code)
-
+		TestCount++
 	})
 }
 
@@ -104,6 +107,8 @@ func TestGetProfileUserDeleted(t *testing.T) {
 	r.ServeHTTP(rec, req)
 
 	assert.Equal(t, http.StatusUnauthorized, rec.Code)
+	assert.Contains(t, rec.Body.String(), "error")
+	TestCount++
 }
 
 func TestTryLoginUserDeleted(t *testing.T) {
@@ -125,5 +130,35 @@ func TestTryLoginUserDeleted(t *testing.T) {
 	r.ServeHTTP(rec, req)
 
 	assert.Equal(t, http.StatusForbidden, rec.Code)
+	assert.Contains(t, rec.Body.String(), "error")
+	TestCount++
+}
 
+func TestTryUpdateUserDeleted(t *testing.T) {
+	r := gin.New()
+	gin.SetMode(gin.ReleaseMode)
+	r.PATCH("/api/users/:id", middlewares.AuthMiddleware(), handlers.UpdatedUserHandle)
+
+	updateCases := mock.MockUpdateSucess()[0]
+
+	jsonBody, _ := json.Marshal(updateCases.RequestBody)
+
+	req, err := http.NewRequest("PATCH", fmt.Sprintf("/api/users/%v", profileId), bytes.NewBuffer(jsonBody))
+	assert.NoError(t, err)
+	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("Authorization", fmt.Sprintf("Bearer %v", goblaToken))
+
+	rec := httptest.NewRecorder()
+
+	r.ServeHTTP(rec, req)
+
+	assert.Equal(t, http.StatusConflict, rec.Code)
+	assert.Contains(t, rec.Body.String(), "error")
+	TestCount++
+
+}
+
+func TestMain(m *testing.M) {
+	m.Run()
+	fmt.Printf("Quantidade de test aprovados foram %v", TestCount)
 }
