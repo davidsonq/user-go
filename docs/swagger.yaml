@@ -45,7 +45,7 @@ definitions:
       updated_at:
         type: string
     type: object
-host: usergolang-dev.onrender.com
+host: usergolang.onrender.com
 info:
   contact:
     email: davidsonquaresma@hotmail.com

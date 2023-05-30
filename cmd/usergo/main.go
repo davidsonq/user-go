@@ -15,7 +15,7 @@ import (
 // @license.name  MIT
 // @license.url   https://github.com/davidsonq/user-go/blame/main/LICENSE
 
-// @host      usergolang-dev.onrender.com
+// @host      usergolang.onrender.com
 // @BasePath  /api/
 func main() {
 	migrations.Migrations()
