@@ -41,6 +41,7 @@ func TestGetProfile(t *testing.T) {
 		assert.Equal(t, requestBody, responseBody.Email)
 		assert.Empty(t, responseBody.Password)
 		profileId = responseBody.ID
+		TestCount++
 	})
 
 	t.Run("ErrorNoAuthorization", func(t *testing.T) {
@@ -54,6 +55,7 @@ func TestGetProfile(t *testing.T) {
 
 		assert.Equal(t, http.StatusUnauthorized, rec.Code)
 		assert.Contains(t, rec.Body.String(), "error")
+		TestCount++
 	})
 
 	t.Run("ErrorNoTokenInvalid", func(t *testing.T) {
@@ -68,5 +70,6 @@ func TestGetProfile(t *testing.T) {
 
 		assert.Equal(t, http.StatusUnauthorized, rec.Code)
 		assert.Contains(t, rec.Body.String(), "error")
+		TestCount++
 	})
 }

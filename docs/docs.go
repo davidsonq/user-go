@@ -119,6 +119,66 @@ const docTemplate = `{
                         }
                     }
                 }
+            },
+            "patch": {
+                "security": [
+                    {
+                        "ApiKeyAuth": []
+                    }
+                ],
+                "description": "Update info user",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "users"
+                ],
+                "summary": "Update User",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Bearer token",
+                        "name": "Authorization",
+                        "in": "header",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "User ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/models.UserResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "The body of the request is empty or lack of Nickname, Email, Password in the body of the request, the email has to be a valid email and nickname has to have at least 3 characters and password at least 6.",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrosNoBody"
+                        }
+                    },
+                    "401": {
+                        "description": "When you pass an invalid token in the request header or it was not sent for authentication.",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrosNoBody"
+                        }
+                    },
+                    "409": {
+                        "description": "User not exist",
+                        "schema": {
+                            "$ref": "#/definitions/models.ErrosNoBody"
+                        }
+                    }
+                }
             }
         },
         "/users/login": {
