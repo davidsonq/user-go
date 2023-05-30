@@ -12,7 +12,7 @@
         },
         "version": "1.0"
     },
-    "host": "https://usergo.onrender.com",
+    "host": "usergolang.onrender.com",
     "basePath": "/api/",
     "paths": {
         "/users": {
