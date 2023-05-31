@@ -1,7 +1,7 @@
 name: Prod Deploy
 on:
   schedule:
-    - cron: "40 19 * * 6"
+    - cron: "0 12 * * 1-4"
 
 jobs:
   deploy:
